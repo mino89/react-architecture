@@ -1,6 +1,6 @@
 import { HttpClientService } from "../../core/service/http-client-service";
 import { inject, injectable } from "inversify";
-import { Patient } from "./types";
+import { Patient, PatientListItem, PatientResponse } from "./types";
 import { makeAutoObservable, runInAction } from "mobx";
 
 @injectable()
@@ -8,7 +8,7 @@ export class PatientService {
   private authHeaders = {
     Authorization: `Basic ${btoa(`${process.env.VITE_API_USER}:${process.env.VITE_API_PASSWORD}`)}`,
   };
-  patients: Patient[] = [];
+  patients: PatientListItem[] = [];
   httpClient: HttpClientService;
 
   constructor(@inject("HttpClientService") httpClient: HttpClientService) {
@@ -17,7 +17,7 @@ export class PatientService {
   }
 
   async getPatients(): Promise<void> {
-    const response = await this.httpClient.request<Patient[]>({
+    const response = await this.httpClient.request<PatientResponse[]>({
       url: `api/GetList`,
       method: "GET",
       headers: this.authHeaders,
@@ -29,7 +29,17 @@ export class PatientService {
 
     runInAction(() => {
       if (response) {
-        this.patients = response;
+        const parsedResponse : PatientListItem[] = response.map((patient) => {
+          const {parameters, ...rest} = patient;
+          const numberOfParameters = parameters.length;
+          const hasAlarm = parameters.some((parameter) => parameter.alarm);
+          return {
+            ...rest,
+            numberOfParameters,
+            hasAlarm
+          }
+        }) 
+        this.patients = parsedResponse;
       }
     });
   }

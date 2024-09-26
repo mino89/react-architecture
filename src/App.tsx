@@ -1,25 +1,28 @@
 import { observer } from "mobx-react";
 
 import './App.css'
-import { useService } from "./core/hooks/useService";
-import { PatientService } from "./service/patient/patient-service";
-import { useEffect } from "react";
+
+import { usePatients } from "./hooks/usePatients";
+import { Table } from "./components/Table/Table";
 
 const App = observer(() => {
-  const data = useService<PatientService>("PatientService");
+  const {
+    patients,
+    columnsConfig
+  } = usePatients();
 
-  useEffect(() => {
-    async function bootstrap(){
-      await data.getPatients()
-    }
-    bootstrap()
-    console.log(data.patients)
-  }, [data])
   return (
     <>
-      App content
+      <Table 
+        data={patients} 
+        columns={columnsConfig}
+        enableFilter={true}
+        enableSort={true}
+      />
     </>
   )
+
+
 })
 
 export default App
