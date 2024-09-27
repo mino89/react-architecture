@@ -28,6 +28,7 @@ export class PatientService {
         requestErrorText: "Error getting patients",
         promiseErrorText: "Error in promise",
       },
+      loadingKey: "getPatients",
     });
 
     runInAction(() => {
@@ -56,6 +57,7 @@ export class PatientService {
         requestErrorText: "Error getting patient",
         promiseErrorText: "Error in promise",
       },
+      loadingKey: "getPatient"
     });
 
     runInAction(() => {

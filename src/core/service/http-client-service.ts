@@ -14,7 +14,7 @@ export class HttpClientService {
 
   public async request<T>(options: HttpRequestParams<T>): Promise<T | undefined> {
     try {
-      this.loadingService.start();
+      this.loadingService.start(options.loadingKey);
       const response = await fetch(options.url, {
         method: options.method,
         headers: options.headers,
@@ -22,14 +22,14 @@ export class HttpClientService {
       });
 
       if (response.ok) {
-        this.loadingService.stop();
+        this.loadingService.stop(options.loadingKey);
         return await response.json();
       } else {
-        this.loadingService.stop();
+        this.loadingService.stop(options.loadingKey);
         console.error(options.errors?.requestErrorText || "Request error");
       }
     } catch (e) {
-      this.loadingService.stop();
+      this.loadingService.stop(options.loadingKey);
       console.error(options.errors?.promiseErrorText || "Promise error");
     }
   }

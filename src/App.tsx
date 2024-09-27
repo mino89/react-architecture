@@ -21,6 +21,7 @@ const App = observer(() => {
     <>
       <Loading
         loadingState="Loading..."
+        loadingKey="getPatients"
         loadedState={
           <Table
             data={patients}

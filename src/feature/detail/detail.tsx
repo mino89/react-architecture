@@ -9,6 +9,7 @@ export const Detail: React.FC<{ id: number | string }> = observer(({ id }) => {
   return (
     <Loading
       loadingState="Loading..."
+      loadingKey="getPatient"
       loadedState={
         <>
           <h1>Detail</h1>

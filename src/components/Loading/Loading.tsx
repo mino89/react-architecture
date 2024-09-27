@@ -3,15 +3,13 @@ import { LoadingProps } from "./types";
 import { LoadingService } from "../../core/service/loading-service";
 import { useService } from "../../core/hooks/useService";
 
-
-
-
 export const Loading: React.FC<LoadingProps> = observer((LoadingProps) => {
-  const { loadingState, loadedState } = LoadingProps;
-  const loadingStore = useService<LoadingService>("LoadingService");
+  const { loadingState, loadedState, loadingKey } = LoadingProps;
+  const loadingService = useService<LoadingService>("LoadingService");
   return (
     <>
-      {loadingStore.isLoading ? (
+      {loadingService.isLoading.loadingKey === loadingKey &&
+      loadingService.isLoading.state ? (
         <div>
           <>{loadingState}</>
         </div>

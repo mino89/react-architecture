@@ -7,4 +7,5 @@ export type HttpRequestParams<T> = {
       requestErrorText?: string;
       promiseErrorText?: string;
     };
+    loadingKey: string; 
   };
