@@ -26,7 +26,6 @@ export class LoadingService {
   }
 
   public stop(key:string): void {
-    console.log(this.loadingState)
     this.loadingState.state = false;
     this.loadingState.loadingKey = key;
   }

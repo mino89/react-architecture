@@ -7,16 +7,15 @@ import { PatientListItem } from "../service/patient/types";
 
 export function usePatients() {
   const service = useService<PatientService>("PatientService");
+  const patients = service.patients;
   const { isOpen, openModal, closeModal } = useModal();
-  const [patients, setPatients] = useState(service.patients);
   const [selectedPatient, setSelectedPatient] = useState<number | string | null>(null);
   useEffect(() => {
     async function bootstrap() {
       await service.getPatients();
-      setPatients(service.patients);
     }
     bootstrap();
-  }, [service, setPatients]);
+  }, [service]);
   
 
   const columnsConfig: ColumnConfig[] = [

@@ -1,7 +1,8 @@
 import { HttpClientService } from "../../core/service/http-client-service";
 import { inject, injectable } from "inversify";
-import { Patient, PatientListItem, PatientResponse } from "./types";
+import { PatientListItem, PatientResponse } from "./types";
 import { makeAutoObservable, runInAction } from "mobx";
+
 
 @injectable()
 export class PatientService {
@@ -11,7 +12,7 @@ export class PatientService {
     )}`,
   };
   patients: PatientListItem[] = [];
-  patient: PatientResponse | null = null;
+  patient: PatientResponse = {} as PatientResponse;
   httpClient: HttpClientService;
 
   constructor(@inject("HttpClientService") httpClient: HttpClientService) {
@@ -32,7 +33,7 @@ export class PatientService {
     });
 
     runInAction(() => {
-      if (response) {
+      if (response && Array.isArray(response)) {
         const parsedResponse: PatientListItem[] = response.map((patient) => {
           const { parameters, ...rest } = patient;
           const numberOfParameters = parameters.length;
@@ -57,13 +58,32 @@ export class PatientService {
         requestErrorText: "Error getting patient",
         promiseErrorText: "Error in promise",
       },
-      loadingKey: "getPatient"
-    });
+      loadingKey: "getPatient",
+    }) as PatientResponse;
 
     runInAction(() => {
       if (response) {
         this.patient = response;
       }
+    });
+  }
+
+  async updatePatient(data: PatientResponse): Promise<void> {
+    await this.httpClient.request<PatientResponse>({
+      url: `api/Update`,
+      method: "POST",
+      headers: {
+        ...this.authHeaders,
+        "Content-Type": "application/json",
+        accept: "*/*",
+      },
+      body: data,
+      errors: {
+        requestErrorText: "Error updating patient",
+        promiseErrorText: "Error in promise",
+      },
+      loadingKey: "updatePatient",
+      emptyBody: true,
     });
   }
 }

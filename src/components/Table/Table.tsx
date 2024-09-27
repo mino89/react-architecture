@@ -39,7 +39,7 @@ const Table: React.FC<TableProps> = (TableProps) => {
         </Row>
       </thead>
       <tbody>
-        {tableData.map((row, index) => (
+        {tableData?.map((row, index) => (
           <Row
             key={index}
             onClick={() => (onRowClick ? onRowClick(row) : null)}
