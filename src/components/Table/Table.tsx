@@ -23,7 +23,7 @@ const Table: React.FC<TableProps> = (TableProps) => {
               {enableSort ? (
                 <Sort column={column} applySort={sortColumn} />
               ) : (
-                column.label
+               <>{column.label}</> 
               )}
 
               <br />
@@ -39,7 +39,7 @@ const Table: React.FC<TableProps> = (TableProps) => {
         </Row>
       </thead>
       <tbody>
-        {tableData.map((row, index) => (
+        {tableData?.map((row, index) => (
           <Row
             key={index}
             onClick={() => (onRowClick ? onRowClick(row) : null)}

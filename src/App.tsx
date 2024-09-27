@@ -1,28 +1,17 @@
-import { observer } from "mobx-react";
 
-import './App.css'
+import "./App.css";
 
-import { usePatients } from "./hooks/usePatients";
-import { Table } from "./components/Table/Table";
+import { ToastProvider } from "./components/Toaster/ToastContext";
+import Toaster from "./components/Toaster/Toaster";
+import List from "./feature/list/list";
 
-const App = observer(() => {
-  const {
-    patients,
-    columnsConfig
-  } = usePatients();
-
+const App =() => {
   return (
-    <>
-      <Table 
-        data={patients} 
-        columns={columnsConfig}
-        enableFilter={true}
-        enableSort={true}
-      />
-    </>
-  )
+    <ToastProvider>
+      <Toaster />
+      <List />
+    </ToastProvider>
+  );
+};
 
-
-})
-
-export default App
+export default App;

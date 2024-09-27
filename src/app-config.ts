@@ -1,5 +1,6 @@
 import { HttpClientService } from "./core/service/http-client-service";
 import { LoadingService } from "./core/service/loading-service";
+import { UserMessagesService } from "./core/service/user-messages-service";
 import { PatientService } from "./service/patient/patient-service";
 
 export const appConfig = {
@@ -16,5 +17,9 @@ export const appConfig = {
       id: "PatientService",
       class: PatientService,
     },
+    {
+      id: "UserMessagesService",
+      class: UserMessagesService,
+    }
   ],
 };

@@ -1,23 +1,32 @@
 import { injectable } from "inversify";
 import { makeAutoObservable } from "mobx";
 
+export type LoadingState = {
+  loadingKey: string;
+  state: boolean;
+}
 @injectable()
 export class LoadingService {
-  private loading: boolean = false;
+  private loadingState: LoadingState = {
+    loadingKey: "",
+    state: false,
+  }
 
-  public get isLoading(): boolean {
-    return this.loading;
+  public get isLoading(): LoadingState {
+    return this.loadingState;
   }
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  public start(): void {
-    this.loading = true;
+  public start(key:string): void {
+    this.loadingState.state = true;
+    this.loadingState.loadingKey = key;
   }
 
-  public stop(): void {
-    this.loading = false;
+  public stop(key:string): void {
+    this.loadingState.state = false;
+    this.loadingState.loadingKey = key;
   }
 }

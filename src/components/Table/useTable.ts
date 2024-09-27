@@ -40,7 +40,7 @@ export function useTable(data: Array<any>) {
   };
 
   const filterData = () => {
-    const filteredData = data.filter((item: any) => {
+    const filteredData = data?.filter((item: any) => {
       return Object.keys(filterMemory).every((key) => {
         return toSearchString(item[key]).includes(
           toSearchString(filterMemory[key])
@@ -57,8 +57,8 @@ export function useTable(data: Array<any>) {
 
   const generateOptions = (column: ColumnConfig) => {
     return data
-      .map((row) => row[column.key])
-      .filter((value, index, self) => {
+      ?.map((row) => row[column.key])
+      ?.filter((value, index, self) => {
         return self.indexOf(value) === index
       });
 
