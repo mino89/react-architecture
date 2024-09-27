@@ -1,6 +1,7 @@
 import React from "react";
 import { FilterProps } from "./types";
-import { Boolean } from "./Boolean";
+import { Alert } from "../Utils/Alert";
+import { DateFormat } from "../Utils/DateFormat";
 export const Filters: React.FC<FilterProps> = (FilterProps) => {
     const { column, applyFilter,options } = FilterProps;
     switch (column.filterType) {
@@ -9,7 +10,6 @@ export const Filters: React.FC<FilterProps> = (FilterProps) => {
             <input
               type="text"
               onChange={(event) =>
-
                 applyFilter && applyFilter(event.target.value, column.key)
               }
             />
@@ -24,9 +24,17 @@ export const Filters: React.FC<FilterProps> = (FilterProps) => {
               <option value=""> Select a value to filter</option>
               {options?.map((value, index) => (
                 <option key={index} value={value}>
-                  {typeof value === "boolean"
-                    ? <Boolean value={value} />
-                    : value}
+                  {(() => {
+                    switch (column.type){
+                      case "boolean":
+                        return <Alert value={value} />;
+                      case "date":
+                        return <DateFormat date={value} />;
+                      default:
+                        return value;
+                    }
+                  })()}
+                  
                 </option>
               ))}
             </select>

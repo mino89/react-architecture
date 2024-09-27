@@ -1,4 +1,5 @@
-import { Boolean } from "./Boolean";
+import { DateFormat } from "../Utils/DateFormat";
+import { Alert } from "../Utils/Alert";
 import { CellProps } from "./types";
 
 const Cell: React.FC<CellProps> = (CellProps) => {
@@ -8,7 +9,7 @@ const Cell: React.FC<CellProps> = (CellProps) => {
 
         case "date":
             return (
-                <td>{new Date(data).toLocaleDateString()}</td>
+                <td><DateFormat date={data}/></td>
             );
 
         case "number":
@@ -18,7 +19,7 @@ const Cell: React.FC<CellProps> = (CellProps) => {
 
         case "boolean":
             return (
-                <td><Boolean value={data}/></td>
+                <td><Alert value={data}/></td>
             );
 
         default:
