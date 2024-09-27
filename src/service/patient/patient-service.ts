@@ -2,7 +2,7 @@ import { HttpClientService } from "../../core/service/http-client-service";
 import { inject, injectable } from "inversify";
 import { PatientListItem, PatientResponse } from "./types";
 import { makeAutoObservable, runInAction } from "mobx";
-
+import { UserMessagesService } from "../../core/service/user-messages-service";
 
 @injectable()
 export class PatientService {
@@ -11,13 +11,18 @@ export class PatientService {
       `${process.env.VITE_API_USER}:${process.env.VITE_API_PASSWORD}`
     )}`,
   };
+  private httpClient: HttpClientService;
+  private userMessageService: UserMessagesService;
   patients: PatientListItem[] = [];
   patient: PatientResponse = {} as PatientResponse;
-  httpClient: HttpClientService;
 
-  constructor(@inject("HttpClientService") httpClient: HttpClientService) {
+  constructor(
+    @inject("HttpClientService") httpClient: HttpClientService,
+    @inject("UserMessageService") userMessageService: UserMessagesService
+  ) {
     makeAutoObservable(this);
     this.httpClient = httpClient;
+    this.userMessageService = userMessageService;
   }
 
   async getPatients(): Promise<void> {
@@ -50,7 +55,7 @@ export class PatientService {
   }
 
   async getPatient(id: number | string): Promise<void> {
-    const response = await this.httpClient.request<PatientResponse>({
+    const response = (await this.httpClient.request<PatientResponse>({
       url: `api/Get/${id}`,
       method: "GET",
       headers: this.authHeaders,
@@ -59,7 +64,7 @@ export class PatientService {
         promiseErrorText: "Error in promise",
       },
       loadingKey: "getPatient",
-    }) as PatientResponse;
+    })) as PatientResponse;
 
     runInAction(() => {
       if (response) {
@@ -84,6 +89,10 @@ export class PatientService {
       },
       loadingKey: "updatePatient",
       emptyBody: true,
+    });
+    this.userMessageService.setMessage({
+      type: "success",
+      message: "Patient updated",
     });
   }
 }
