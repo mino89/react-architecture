@@ -23,7 +23,7 @@ const Table: React.FC<TableProps> = (TableProps) => {
               {enableSort ? (
                 <Sort column={column} applySort={sortColumn} />
               ) : (
-                column.label
+               <>{column.label}</> 
               )}
 
               <br />

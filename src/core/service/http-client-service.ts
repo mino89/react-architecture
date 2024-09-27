@@ -14,6 +14,7 @@ export class HttpClientService {
 
   public async request<T>(options: HttpRequestParams<T>): Promise<T | undefined> {
     try {
+      this.loadingService.start();
       const response = await fetch(options.url, {
         method: options.method,
         headers: options.headers,
