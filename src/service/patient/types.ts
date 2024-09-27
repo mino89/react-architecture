@@ -11,5 +11,13 @@ export type Patient = {
     givenName: string;
     birthDate: string;
     sex: string;
+}
+
+export type PatientListItem  = Patient & {
+    numberOfParameters: number;
+    hasAlarm: boolean;
+}
+
+export type PatientResponse = Patient & {
     parameters: Parameter[];
 }
