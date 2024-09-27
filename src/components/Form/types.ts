@@ -9,7 +9,8 @@ export type FormFieldConfig = {
     key: string;
     label: string;
     type: FieldType;
-    options?: OptionValue[]; 
+    options?: OptionValue[];
+    required?: boolean;
 }
 
 export type FormField = {

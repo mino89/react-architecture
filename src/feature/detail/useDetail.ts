@@ -31,21 +31,25 @@ export function useDetail(id: number | string) {
       key: "familyName",
       label: "Family Name",
       type: "text",
+      required: true,
     },
     {
       key: "givenName",
       label: "Given Name",
       type: "text",
+      required: true,
     },
     {
       key: "birthDate",
       label: "Birth Date",
       type: "date",
+      required: true,
     },
     {
       key: "sex",
       label: "Sex",
       type: "select",
+      required: true,
       options: [
         {
           value: "M",

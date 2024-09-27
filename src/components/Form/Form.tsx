@@ -6,7 +6,7 @@ import { Field } from "./Field";
 export const Form: React.FC<FormProps> = (FormProps) => {
   const { data, fields, onSubmit } = FormProps;
 
-  const { handleSubmit, handleChange, formData } = useForm(data, onSubmit);
+  const { handleSubmit, handleChange, formData, disabled } = useForm(data, onSubmit);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -20,7 +20,7 @@ export const Form: React.FC<FormProps> = (FormProps) => {
           />
         );
       })}
-      <button type="submit">Submit</button>
+      <button disabled={disabled} type="submit">Submit</button>
     </form>
   );
 };
