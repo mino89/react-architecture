@@ -12,17 +12,17 @@ export class PatientService {
     )}`,
   };
   private httpClient: HttpClientService;
-  private userMessageService: UserMessagesService;
+  private userMessagesService: UserMessagesService;
   patients: PatientListItem[] = [];
   patient: PatientResponse = {} as PatientResponse;
 
   constructor(
     @inject("HttpClientService") httpClient: HttpClientService,
-    @inject("UserMessageService") userMessageService: UserMessagesService
+    @inject("UserMessagesService") userMessagesService: UserMessagesService
   ) {
     makeAutoObservable(this);
     this.httpClient = httpClient;
-    this.userMessageService = userMessageService;
+    this.userMessagesService = userMessagesService;
   }
 
   async getPatients(): Promise<void> {
@@ -90,7 +90,7 @@ export class PatientService {
       loadingKey: "updatePatient",
       emptyBody: true,
     });
-    this.userMessageService.setMessage({
+    this.userMessagesService.setMessage({
       type: "success",
       message: "Patient updated",
     });

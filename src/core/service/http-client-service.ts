@@ -6,13 +6,13 @@ import { UserMessagesService } from "./user-messages-service";
 @injectable()
 export class HttpClientService {
   private loadingService: LoadingService;
-  private userMessageService: UserMessagesService;
+  private userMessagesService: UserMessagesService;
   constructor(
     @inject("LoadingService") loadingService: LoadingService,
-    @inject("UserMessageService") userMessageService: UserMessagesService
+    @inject("UserMessagesService") userMessagesService: UserMessagesService
   ) {
     this.loadingService = loadingService;
-    this.userMessageService = userMessageService;
+    this.userMessagesService = userMessagesService;
   }
 
   public async request<T>(
@@ -36,14 +36,14 @@ export class HttpClientService {
         }
       } else {
         this.loadingService.stop(options.loadingKey);
-        this.userMessageService.setMessage({
+        this.userMessagesService.setMessage({
           type: "error",
           message: options.errors?.requestErrorText || "Request error",
         });
       }
     } catch (e) {
       this.loadingService.stop(options.loadingKey);
-      this.userMessageService.setMessage({
+      this.userMessagesService.setMessage({
         type: "error",
         message: options.errors?.promiseErrorText || "Promise error",
       });

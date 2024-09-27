@@ -18,7 +18,7 @@ export const appConfig = {
       class: PatientService,
     },
     {
-      id: "UserMessageService",
+      id: "UserMessagesService",
       class: UserMessagesService,
     }
   ],

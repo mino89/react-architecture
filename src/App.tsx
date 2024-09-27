@@ -1,44 +1,17 @@
-import { observer } from "mobx-react";
 
 import "./App.css";
 
-import { usePatients } from "./hooks/usePatients";
-import { Table } from "./components/Table/Table";
-import { Loading } from "./components/Loading/Loading";
-import Modal from "./components/Modal/Modal";
-import { Detail } from "./feature/detail/detail";
+import { ToastProvider } from "./components/Toaster/ToastContext";
+import Toaster from "./components/Toaster/Toaster";
+import List from "./feature/list/list";
 
-const App = observer(() => {
-  const { 
-    patients, 
-    columnsConfig, 
-    isOpen, 
-    selectedPatient,
-    closeModal, 
-    openDetail } = usePatients();
-
+const App =() => {
   return (
-    <>
-      <Loading
-        loadingState="Loading..."
-        loadingKey="getPatients"
-        loadedState={
-          <Table
-            data={patients}
-            columns={columnsConfig}
-            enableFilter={true}
-            enableSort={true}
-            onRowClick={(row) => openDetail(row)}
-          />
-        }
-      />
-
-      <Modal isOpen={isOpen} onClose={closeModal}>
-        <div>Modal Content</div>
-        {selectedPatient !== null && <Detail id={selectedPatient} />}
-      </Modal>
-    </>
+    <ToastProvider>
+      <Toaster />
+      <List />
+    </ToastProvider>
   );
-});
+};
 
 export default App;
