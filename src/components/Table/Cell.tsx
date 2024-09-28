@@ -1,6 +1,6 @@
 import { DateFormat } from "../Utils/DateFormat";
 import { Alert } from "../Utils/Alert";
-import { CellProps } from "./types";
+import { CellProps } from "./_types";
 
 const Cell: React.FC<CellProps> = (CellProps) => {
     const { data, type } = CellProps;

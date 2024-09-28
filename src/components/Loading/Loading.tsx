@@ -1,6 +1,6 @@
 import { observer } from "mobx-react";
-import { LoadingProps } from "./types";
-import { LoadingService } from "../../core/service/loading-service";
+import { LoadingProps } from "./_types";
+import { LoadingService } from "../../core/services/loading-service";
 import { useService } from "../../core/hooks/useService";
 
 export const Loading: React.FC<LoadingProps> = observer((LoadingProps) => {

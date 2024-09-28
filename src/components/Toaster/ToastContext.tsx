@@ -1,5 +1,5 @@
 import React, { createContext, useState, useCallback } from 'react';
-import { ToastContextProps, Toast } from './types';
+import { ToastContextProps, Toast } from './_types';
 
 export const ToastContext = createContext<ToastContextProps>({
   toasts: [],

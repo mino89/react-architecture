@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useService } from "../../core/hooks/useService";
-import { PatientService } from "../../service/patient/patient-service";
-import { ColumnConfig } from "../../components/Table/types";
-import { FormFieldConfig } from "../../components/Form/types";
-import { PatientResponse } from "../../service/patient/types";
+import { useService } from "../../../core/hooks/useService";
+import { PatientService } from "../../services/patient/patient-service";
+import { ColumnConfig } from "../../../components/Table/_types";
+import { FormFieldConfig } from "../../../components/Form/_types";
+import { PatientResponse } from "../../services/patient/_types";
 export function useDetail(id: number | string) {
   const service = useService<PatientService>("PatientService");
   const [patient, setPatient] = useState<PatientResponse>(service.patient);

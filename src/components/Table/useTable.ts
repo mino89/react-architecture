@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { ColumnConfig } from "./types";
+import { ColumnConfig, FilterDirection, FilterMemoryObj } from "./_types";
 
 export function useTable(data: Array<any>) {
   const [tableData, setTableData] = useState(data);
-  const [filterMemory, setFilterMemory] = useState<Record<string, string>>({});
+  const [filterMemory, setFilterMemory] = useState<
+    Record<string, string | FilterMemoryObj>
+  >({});
 
   useEffect(() => {
     setTableData(data);
@@ -11,40 +13,70 @@ export function useTable(data: Array<any>) {
   }, [data, filterMemory]);
 
   const sortColumn = (column: ColumnConfig) => {
-    column.sortOrder = !column.sortOrder;
+    column.sortOrder = setColumnSortOrder(column);
     const sortedData = [...tableData].sort((a: any, b: any) => {
-      if (a[column.key] < b[column.key]) {
-        return column.sortOrder ? -1 : 1;
+      switch (column.sortOrder) {
+        case "asc":
+          return a[column.key] > b[column.key] ? 1 : -1;
+        case "desc":
+          return a[column.key] < b[column.key] ? 1 : -1;
+        default:
+          return 0;
       }
-      if (a[column.key] > b[column.key]) {
-        return column.sortOrder ? 1 : -1;
-      }
-      return 0;
     });
-    setTableData([...sortedData]);
+    setTableData(!column.sortOrder ? data : [...sortedData]);
   };
 
+  const setColumnSortOrder = (column: ColumnConfig) => {
+    if (!column.sortOrder) {
+      return "desc";
+    } else if (column.sortOrder === "desc") {
+      return "asc";
+    } else {
+      return undefined;
+    }
+  };
 
-  const updateFilterMemory = (column: string, value: string) => {
+  const updateFilterMemory = (
+    column: ColumnConfig,
+    value: string | FilterMemoryObj
+  ) => {
     setFilterMemory((prevFilterMemory) => {
       if (!value) {
-        const { [column]: _, ...rest } = prevFilterMemory;
+        const { [column.key]: _, ...rest } = prevFilterMemory;
         return rest;
       }
-      return { ...prevFilterMemory, [column]: value };
+      return { ...prevFilterMemory, [column.key]: value };
     });
   };
 
-  const filterColumn = (input: string, column: string) => {
+  const filterColumn = (input: string, column: ColumnConfig) => {
     updateFilterMemory(column, input);
   };
 
   const filterData = () => {
     const filteredData = data?.filter((item: any) => {
       return Object.keys(filterMemory).every((key) => {
-        return toSearchString(item[key]).includes(
-          toSearchString(filterMemory[key])
-        );
+        if (typeof filterMemory[key] === "object" && filterMemory[key].type) {
+          switch (filterMemory[key].type) {
+            case "number":
+              return filterNumbers(
+                parseFloat(filterMemory[key].value),
+                parseFloat(item[key]),
+                filterMemory[key].direction
+              );
+            case "date":
+              return filterNumbers(
+                new Date(filterMemory[key].value).getTime(),
+                new Date(item[key]).getTime(),
+                filterMemory[key].direction
+              );
+          }
+        } else {
+          return toSearchString(item[key]).includes(
+            toSearchString(filterMemory[key].toString())
+          );
+        }
       });
     });
 
@@ -59,18 +91,40 @@ export function useTable(data: Array<any>) {
     return data
       ?.map((row) => row[column.key])
       ?.filter((value, index, self) => {
-        return self.indexOf(value) === index
+        return self.indexOf(value) === index;
       });
+  };
 
-  }
+  const filterNumbers = (
+    from: number,
+    to: number,
+    direction: FilterDirection
+  ) => {
+    if (isNaN(from) || isNaN(to)) {
+      return true;
+    }
+    if (direction === "after") {
+      return to >= from;
+    } else {
+      return to <= from;
+    }
+  };
 
   const toSearchString = (value: number | string) => {
     return value?.toString().toLowerCase();
   };
 
   const resetData = () => {
+    filterMemory && setFilterMemory({});
     setTableData(data);
   };
 
-  return { tableData, sortColumn, filterColumn, resetData, generateOptions };
+  return {
+    tableData,
+    filterMemory,
+    sortColumn,
+    filterColumn,
+    resetData,
+    generateOptions,
+  };
 }
