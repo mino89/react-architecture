@@ -6,18 +6,10 @@ import { usePatients } from "../../hooks/usePatients";
 import { Detail } from "../detail/detail";
 import { useList } from "./useList";
 
-
 const List: React.FC = observer(() => {
-  useList();
-  const {
-    patients,
-    columnsConfig,
-    isOpen,
-    selectedPatient,
-    closeModal,
-    openDetail,
-  } = usePatients();
-
+  const { columnsConfig } = useList();
+  const { patients, isOpen, selectedPatient, closeModal, openDetail } =
+    usePatients();
 
   return (
     <>
