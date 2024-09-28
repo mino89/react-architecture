@@ -23,3 +23,8 @@ export type Usermessage = {
   message: string;
   duration?: number;
 }
+
+export type LoadingState = {
+  loadingKey: string;
+  state: boolean;
+}
