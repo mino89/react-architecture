@@ -28,7 +28,6 @@ export class HttpClientService {
     options: HttpRequestParams<T>
   ): Promise<T | EmptyResponse | undefined> {
     this.loadingService.start(options.loadingKey);
-
     try {
       const response = await fetch(options.url, {
         method: options.method,
