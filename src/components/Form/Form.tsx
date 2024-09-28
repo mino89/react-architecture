@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "./useForm";
-import { FormProps } from "./types";
+import { FormProps } from "./_types";
 import { Field } from "./Field";
 
 export const Form: React.FC<FormProps> = (FormProps) => {

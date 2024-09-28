@@ -1,4 +1,4 @@
-import { SortProps } from "./types";
+import { SortProps } from "./_types";
 
 export const Sort: React.FC<SortProps> = (SortProps) => {
   const { column, applySort } = SortProps;

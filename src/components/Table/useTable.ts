@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ColumnConfig } from "./types";
+import { ColumnConfig } from "./_types";
 
 export function useTable(data: Array<any>) {
   const [tableData, setTableData] = useState(data);

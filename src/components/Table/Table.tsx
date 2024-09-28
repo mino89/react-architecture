@@ -1,7 +1,7 @@
 import Row from "./Row";
 import Cell from "./Cell";
 import { useTable } from "./useTable";
-import { TableProps } from "./types";
+import { TableProps } from "./_types";
 import { Filters } from "./Filters";
 import { Sort } from "./Sort";
 

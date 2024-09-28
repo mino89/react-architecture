@@ -1,4 +1,4 @@
-import { FormField } from "./types";
+import { FormField } from "./_types";
 
 export const Field: React.FC<FormField> = (FormField) => {
     const { config, onChange, data } = FormField;

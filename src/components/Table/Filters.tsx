@@ -1,5 +1,5 @@
 import React from "react";
-import { FilterProps } from "./types";
+import { FilterProps } from "./_types";
 import { Alert } from "../Utils/Alert";
 import { DateFormat } from "../Utils/DateFormat";
 export const Filters: React.FC<FilterProps> = (FilterProps) => {

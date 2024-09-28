@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useService } from "../../core/hooks/useService";
 import { PatientService } from "../services/patient/patient-service";
-import { ColumnConfig } from "../../components/Table/types";
+import { ColumnConfig } from "../../components/Table/_types";
 import { useModal } from "../../components/Modal/useModal";
-import { PatientListItem } from "../services/patient/types";
+import { PatientListItem } from "../services/patient/_types";
 
 export function usePatients() {
   const service = useService<PatientService>("PatientService");
