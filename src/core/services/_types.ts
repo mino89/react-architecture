@@ -16,6 +16,10 @@ export type EmptyResponse = {
   status: string | number;
 }
 
+export type ErrorResponse = {
+  status: string | number;
+}
+
 export type MessagesTypes = "error" | "success" | "info" | "warning";
 
 export type Usermessage = {

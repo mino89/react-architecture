@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 import { LoadingService } from "./loading-service";
-import { EmptyResponse, HttpRequestParams } from "./_types";
+import { EmptyResponse, ErrorResponse, HttpRequestParams } from "./_types";
 import { UserMessagesService } from "./user-messages-service";
 /**
  * Service for sending HTTP requests.
@@ -22,11 +22,11 @@ export class HttpClientService {
    *
    * @template T - The expected response type.
    * @param {HttpRequestParams<T>} options - The parameters for the HTTP request.
-   * @returns {Promise<T | EmptyResponse | undefined>} - A promise that resolves to the response data, an empty response, or undefined if an error occurs.
+   * @returns {Promise<T | EmptyResponse | ErrorResponse>} - A promise that resolves to the response data, an empty response, or undefined if an error occurs.
    */
   public async request<T>(
     options: HttpRequestParams<T>
-  ): Promise<T | EmptyResponse | undefined> {
+  ): Promise<T | EmptyResponse | ErrorResponse> {
     this.loadingService.start(options.loadingKey);
     try {
       const response = await fetch(options.url, {
@@ -42,12 +42,14 @@ export class HttpClientService {
           options.errors?.requestErrorText || "Request error",
           options.loadingKey
         );
+        return { status: response.status };
       }
     } catch (e) {
       this.handleError(
         options.errors?.promiseErrorText || "Promise error",
         options.loadingKey
       );
+      return { status: "error" };
     }
   }
   /**
