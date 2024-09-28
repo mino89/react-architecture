@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
-import { ToastContext } from "../../components/Toaster/ToastContext";
-import { useService } from "../../core/hooks/useService";
-import { UserMessagesService } from "../../core/service/user-messages-service";
+import { ToastContext } from "../../../components/Toaster/ToastContext";
+import { useService } from "../../../core/hooks/useService";
+import { UserMessagesService } from "../../../core/services/user-messages-service";
 
 export function useList() {
   const toastService = useService<UserMessagesService>("UserMessagesService");

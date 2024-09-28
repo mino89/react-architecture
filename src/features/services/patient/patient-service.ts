@@ -1,8 +1,8 @@
-import { HttpClientService } from "../../core/service/http-client-service";
+import { HttpClientService } from "../../../core/services/http-client-service";
 import { inject, injectable } from "inversify";
 import { PatientListItem, PatientResponse } from "./types";
 import { makeAutoObservable, runInAction } from "mobx";
-import { UserMessagesService } from "../../core/service/user-messages-service";
+import { UserMessagesService } from "../../../core/services/user-messages-service";
 
 @injectable()
 export class PatientService {
