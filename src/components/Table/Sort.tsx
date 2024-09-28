@@ -1,3 +1,4 @@
+import { ARROW_DIRECTIONS } from "../Utils/arrows";
 import { SortProps } from "./_types";
 
 export const Sort: React.FC<SortProps> = (SortProps) => {
@@ -5,7 +6,16 @@ export const Sort: React.FC<SortProps> = (SortProps) => {
   return (
     <div onClick={() => applySort && applySort(column)}>
       {column.label}{" "}
-      {column.sortOrder === undefined ? "" : column.sortOrder ? "▲" : "▼"}
+      {(() => {
+        switch (column.sortOrder){
+          case "asc":
+            return <>{ARROW_DIRECTIONS.UP}</>;
+          case "desc":
+            return <>{ARROW_DIRECTIONS.DOWN}</>;
+          default:
+            return"";
+        }
+      })()}
     </div>
   );
 };
