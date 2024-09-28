@@ -1,5 +1,5 @@
 import { observer } from "mobx-react";
-import { LoadingProps } from "./types";
+import { LoadingProps } from "./_types";
 import { LoadingService } from "../../core/services/loading-service";
 import { useService } from "../../core/hooks/useService";
 

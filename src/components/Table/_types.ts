@@ -5,7 +5,7 @@ export type ColumnConfig = {
     label: string;
     filterType?: "text" | "select";
     type?: Datatype;
-    sortOrder?: boolean;
+    sortOrder?: "asc" | "desc";
 }
 
 export type TableProps = {

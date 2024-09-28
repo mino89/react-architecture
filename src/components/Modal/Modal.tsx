@@ -1,6 +1,6 @@
 import React from 'react';
 import './Modal.css'; // Import CSS for styling
-import { ModalProps } from './types';
+import { ModalProps } from './_types';
 
 
 
