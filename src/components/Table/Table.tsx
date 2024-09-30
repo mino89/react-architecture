@@ -53,6 +53,13 @@ const Table: React.FC<TableProps> = (TableProps) => {
           </Row>
         </thead>
         <tbody>
+          {!tableData?.length && (
+            <Row>
+              <td colSpan={columns.length} className="cell-align-center">
+                No data found
+              </td>
+            </Row>
+          )}
           {tableData?.map((row) => (
             <Row
               key={row.id}
