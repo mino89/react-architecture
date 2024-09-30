@@ -12,10 +12,6 @@ export function useTable(data: Array<any>) {
     filterData();
   }, [data, filterMemory]);
 
-  useEffect(() => {
-    setTableData(filteredData);
-  }, [filteredData]);
-
   const sortColumn = (column: ColumnConfig) => {
     column.sortOrder = setColumnSortOrder(column);
     const dataOrigin = filteredData.length > 0 ? filteredData : tableData;
@@ -97,6 +93,7 @@ export function useTable(data: Array<any>) {
       return;
     }
     setFilteredData([...filteredDataResult]);
+    setTableData([...filteredDataResult]);
   };
 
   const generateOptions = (column: ColumnConfig) => {
