@@ -28,7 +28,6 @@ const PatientList = observer(() => {
       />
 
       <Modal isOpen={isOpen} onClose={closeModal}>
-        <div>Modal Content</div>
         {selectedPatient !== null && <PatientDetail id={selectedPatient} />}
       </Modal>
     </>
