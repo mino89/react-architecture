@@ -17,8 +17,8 @@ export class PatientService {
   patient: PatientResponse = {} as PatientResponse;
 
   constructor(
-    @inject("HttpClientService") httpClient: HttpClientService,
-    @inject("UserMessagesService") userMessagesService: UserMessagesService
+    @inject(HttpClientService) httpClient: HttpClientService,
+    @inject(UserMessagesService) userMessagesService: UserMessagesService
   ) {
     makeAutoObservable(this);
     this.httpClient = httpClient;

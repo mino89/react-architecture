@@ -1,10 +1,10 @@
-import { Container } from "inversify";
+import { Container, interfaces } from "inversify";
 import { DiItem } from "./_types";
 import { appConfig } from "../../app-config";
 
 /**
  * Generates the DI configuration.
- * @param diConfig {DiItem[]} - The DI configuration.
+ * @param diConfig {interfaces.Abstract<unknown>[]} - The DI configuration.
  * @returns {Container} - The DI container.
  */
 export function generateDiConfig(diConfig: DiItem[]): Container {
@@ -13,7 +13,7 @@ export function generateDiConfig(diConfig: DiItem[]): Container {
   }
   const container = new Container();
   diConfig.forEach((item) => {
-    container.bind(item.id).to(item.class).inSingletonScope();
+    container.bind(item).to(item as interfaces.Newable<unknown>).inSingletonScope();
   });
   return container;
 }

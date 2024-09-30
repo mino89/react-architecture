@@ -5,7 +5,7 @@ import { UserMessagesService } from "../../../core/services/user-messages-servic
 import { ColumnConfig } from "../../../components/Table/_types";
 
 export function useList() {
-  const toastService = useService<UserMessagesService>("UserMessagesService");
+  const toastService = useService(UserMessagesService);
   const { addToast } = useContext(ToastContext);
   
   useEffect(() => {

@@ -5,7 +5,7 @@ import { useModal } from "../../components/Modal/useModal";
 import { PatientListItem } from "../services/patient/_types";
 
 export function usePatients() {
-  const service = useService<PatientService>("PatientService");
+  const service = useService(PatientService);
   const patients = service.patients;
   const { isOpen, openModal, closeModal } = useModal();
   const [selectedPatient, setSelectedPatient] = useState<number | string | null>(null);

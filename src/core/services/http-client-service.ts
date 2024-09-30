@@ -13,8 +13,8 @@ import { UserMessagesService } from "./user-messages-service";
 @injectable()
 export class HttpClientService {
   constructor(
-    @inject("LoadingService") private loadingService: LoadingService,
-    @inject("UserMessagesService")
+    @inject(LoadingService) private loadingService: LoadingService,
+    @inject(UserMessagesService)
     private userMessagesService: UserMessagesService
   ) {}
   /**
