@@ -44,7 +44,7 @@ export class HttpClientService {
         );
         return { status: response.status };
       }
-    } catch (e) {
+    } catch {
       this.handleError(
         options.errors?.promiseErrorText || "Promise error",
         options.loadingKey
@@ -65,7 +65,7 @@ export class HttpClientService {
     this.loadingService.stop(loadingKey);
     try {
       return await response.json();
-    } catch (e) {
+    } catch {
       return { status: response.status };
     }
   }
