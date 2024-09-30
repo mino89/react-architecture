@@ -64,9 +64,11 @@ export const PatientDetail: React.FC<{ id: number | string }> = observer(
                             <b>{patient.sex}</b>
                           </div>
                         </div>
+                        <hr />
                         <button onClick={() => setIsEditing(true)}>Edit</button>
                       </>
                     )}
+                    <h2>Parameters</h2>
                     <hr />
                     <Table data={patient.parameters} columns={columnsConfig} />
                   </>
