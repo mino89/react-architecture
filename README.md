@@ -45,3 +45,10 @@ npm run version:patch
 npm run version:minor
 npm run version:major
 ```
+
+# Run Tests
+
+```bash
+npm run test
+nmp run test:watch
+```
