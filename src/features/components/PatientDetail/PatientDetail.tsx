@@ -1,11 +1,11 @@
 import { observer } from "mobx-react";
-import { useDetail } from "./useDetail";
+import { useDetail } from "./usePatientDetail";
 import { DateFormat } from "../../../components/Utils/DateFormat";
 import { Loading } from "../../../components/Loading/Loading";
 import { Table } from "../../../components/Table/Table";
 import { Form } from "../../../components/Form/Form";
 
-export const Detail: React.FC<{ id: number | string }> = observer(({ id }) => {
+export const PatientDetail: React.FC<{ id: number | string }> = observer(({ id }) => {
   const {
     patient,
     columnsConfig,

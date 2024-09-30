@@ -1,14 +1,23 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useService } from "../../../core/hooks/useService";
 import { PatientService } from "../../services/patient/patient-service";
 import { ColumnConfig } from "../../../components/Table/_types";
 import { FormFieldConfig } from "../../../components/Form/_types";
 import { PatientResponse } from "../../services/patient/_types";
+import { UserMessagesService } from "../../../core/services/user-messages-service";
+import { ToastContext } from "../../../components/Toaster/ToastContext";
 export function useDetail(id: number | string) {
   const service = useService(PatientService);
   const [patient, setPatient] = useState<PatientResponse>(service.patient);
   const [isEditing, setIsEditing] = useState(false);
-
+  const toastService = useService(UserMessagesService);
+  const { addToast } = useContext(ToastContext);
+  useEffect(() => {
+    if (toastService.message) {
+      console.log(toastService.message)
+      addToast(toastService.message?.type, toastService.message?.message, toastService.message?.duration);
+    }
+  }, [addToast, toastService.message]);
   const columnsConfig: ColumnConfig[] = [
     {
       key: "name",

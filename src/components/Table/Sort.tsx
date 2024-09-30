@@ -1,4 +1,4 @@
-import { ARROW_DIRECTIONS } from "../Utils/arrows";
+import { ARROW_DIRECTIONS } from "../Utils/const/arrows";
 import { SortProps } from "./_types";
 
 export const Sort: React.FC<SortProps> = (SortProps) => {

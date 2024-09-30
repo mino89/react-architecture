@@ -13,7 +13,7 @@ export class UserMessagesService {
    * The message.
    * @type {Usermessage}
    */
-  public message!: Usermessage;
+  public message: Usermessage = {} as Usermessage;
   constructor() {
     makeAutoObservable(this);
   }

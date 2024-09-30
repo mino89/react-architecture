@@ -6,6 +6,6 @@ export type Toast = {
 
 export type ToastContextProps = {
   toasts: Toast[];
-  addToast: (type: Toast["type"], message: string) => void;
+  addToast: (type: Toast["type"], message: string, duration?:number) => void;
   removeToast: (id: number) => void;
 };
