@@ -6,7 +6,6 @@ export type LoaderProps = {
   loadingState: React.ReactNode;
   loadedState: React.ReactNode;
   loadingKey: string;
-  isLoading: boolean;
 };
 
 export const Loader: React.FC<LoaderProps> = observer((LoadingProps) => {

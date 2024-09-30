@@ -90,9 +90,12 @@ export class HttpClientService {
    * @param loadingKey
    * @returns void
    */
-  private handleError(message: string, loadingKey: string, duration = 3000): void {
+  private handleError(
+    message: string,
+    loadingKey: string,
+    duration = 3000
+  ): void {
     this.loadingService.stop(loadingKey);
-    console.error(message);
     this.userMessagesService.setMessage({
       type: "error",
       message,
@@ -100,14 +103,14 @@ export class HttpClientService {
     });
   }
 
-  private checkAuthParams<T>(options:HttpRequestParams<T>) {
-    if ( !process.env.VITE_API_USER || !process.env.VITE_API_PASSWORD ) {
+  private checkAuthParams<T>(options: HttpRequestParams<T>) {
+    if (!process.env.VITE_API_USER || !process.env.VITE_API_PASSWORD) {
       this.handleError(
         "API user and password not set",
         options.loadingKey,
         30000
       );
-      return Promise.reject("API user and password not set");
+      throw new Error("API user and password not set in environment variable");
     }
   }
 }

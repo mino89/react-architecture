@@ -6,9 +6,8 @@ import { UserMessagesService } from "../../../core/services/user-messages-servic
 
 @injectable()
 export class PatientService {
-
   readonly httpClient: HttpClientService;
-  readonly userMessagesService: UserMessagesService;
+  readonly notificationService: UserMessagesService;
   patients: PatientListItem[] = [];
   patient: PatientResponse = {} as PatientResponse;
 
@@ -18,7 +17,7 @@ export class PatientService {
   ) {
     makeAutoObservable(this);
     this.httpClient = httpClient;
-    this.userMessagesService = userMessagesService;
+    this.notificationService = userMessagesService;
   }
 
   async getPatients(): Promise<void> {
@@ -83,7 +82,7 @@ export class PatientService {
       loadingKey: "updatePatient",
       emptyBody: true,
     });
-    this.userMessagesService.setMessage({
+    this.notificationService.setMessage({
       type: "success",
       message: "Patient updated",
     });

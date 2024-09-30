@@ -10,12 +10,15 @@ import nock from "nock"; // Import nock
 jest.mock("./loading-service");
 jest.mock("./user-messages-service");
 
-describe("HttpClientService with nock", () => {
+describe("HttpClientService", () => {
   let httpClientService: HttpClientService;
   let loadingService: LoadingService;
   let userMessagesService: UserMessagesService;
+  const OLD_ENV = process.env;
 
   beforeEach(() => {
+    process.env.VITE_API_USER = "test";
+    process.env.VITE_API_PASSWORD = "test";
     loadingService = new LoadingService();
     userMessagesService = new UserMessagesService();
     httpClientService = new HttpClientService(
@@ -24,6 +27,26 @@ describe("HttpClientService with nock", () => {
     );
     fetchMock.resetMocks();
     nock.cleanAll();
+  });
+
+  afterEach(() => {
+    process.env = OLD_ENV;
+  });
+
+  it("should return an error if env variables are not set", async () => {
+    delete process.env.VITE_API_USER;
+    delete process.env.VITE_API_PASSWORD;
+
+    const options: HttpRequestParams<any> = {
+      url: "https://api.example.com/data",
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      loadingKey: "getData",
+    };
+
+    await expect(httpClientService.request<any>(options)).rejects.toThrow(
+      "API user and password not set in environment variable"
+    );
   });
 
   it("should send a GET request and return the response data", async () => {
@@ -40,9 +63,8 @@ describe("HttpClientService with nock", () => {
       loadingKey: "getData",
     };
 
-    const response = await httpClientService.request<typeof mockResponse>(
-      options
-    );
+    const response =
+      await httpClientService.request<typeof mockResponse>(options);
 
     expect(response).toEqual(mockResponse);
     expect(nock.isDone()).toBe(true);
