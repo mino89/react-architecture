@@ -5,21 +5,9 @@ import { PatientService } from "./features/services/patient/patient-service";
 
 export const appConfig = {
   di: [
-    {
-      id: "LoadingService",
-      class: LoadingService,
-    },
-    {
-      id: "HttpClientService",
-      class: HttpClientService,
-    },
-    {
-      id: "PatientService",
-      class: PatientService,
-    },
-    {
-      id: "UserMessagesService",
-      class: UserMessagesService,
-    }
+    LoadingService, 
+    UserMessagesService, 
+    HttpClientService, 
+    PatientService
   ],
 };

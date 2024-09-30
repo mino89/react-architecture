@@ -5,7 +5,7 @@ import { ColumnConfig } from "../../../components/Table/_types";
 import { FormFieldConfig } from "../../../components/Form/_types";
 import { PatientResponse } from "../../services/patient/_types";
 export function useDetail(id: number | string) {
-  const service = useService<PatientService>("PatientService");
+  const service = useService(PatientService);
   const [patient, setPatient] = useState<PatientResponse>(service.patient);
   const [isEditing, setIsEditing] = useState(false);
 

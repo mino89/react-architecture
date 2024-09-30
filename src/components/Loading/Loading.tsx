@@ -5,7 +5,7 @@ import { useService } from "../../core/hooks/useService";
 
 export const Loading: React.FC<LoadingProps> = observer((LoadingProps) => {
   const { loadingState, loadedState, loadingKey } = LoadingProps;
-  const loadingService = useService<LoadingService>("LoadingService");
+  const loadingService = useService(LoadingService);
   return (
     <>
       {loadingService.isLoading.loadingKey === loadingKey &&

@@ -13,9 +13,9 @@ npm install
 Create a `.env` file in the root of the project with the following content:
 
 ```env
-API_URL=https://your-api-url.com
-API_USER=your-api-user
-API_PASSWORD=your-api-password
+VITE_API_URL=https://your-api-url.com
+VITE_API_USER=your-api-user
+VITE_API_PASSWORD=your-api-password
 ```
 
 ### Run Development Server
@@ -44,4 +44,11 @@ npm run build
 npm run version:patch
 npm run version:minor
 npm run version:major
+```
+
+# Run Tests
+
+```bash
+npm run test
+nmp run test:watch
 ```
