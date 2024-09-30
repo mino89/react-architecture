@@ -37,16 +37,16 @@ describe("HttpClientService", () => {
     delete process.env.VITE_API_USER;
     delete process.env.VITE_API_PASSWORD;
 
-    const options: HttpRequestParams<any> = {
+    const options: HttpRequestParams<Record<string, string>> = {
       url: "https://api.example.com/data",
       method: "GET",
       headers: { "Content-Type": "application/json" },
       loadingKey: "getData",
     };
 
-    await expect(httpClientService.request<any>(options)).rejects.toThrow(
-      "API user and password not set in environment variable"
-    );
+    await expect(
+      httpClientService.request<Record<string, string>>(options)
+    ).rejects.toThrow("API user and password not set in environment variable");
   });
 
   it("should send a GET request and return the response data", async () => {

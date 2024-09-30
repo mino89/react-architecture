@@ -115,7 +115,7 @@ export function useTable(data: Array<any>) {
   };
 
   const resetData = () => {
-    filterMemory && setFilterMemory({});
+    setFilterMemory({});
     setTableData(data);
   };
 
