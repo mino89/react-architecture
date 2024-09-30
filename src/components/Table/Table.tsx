@@ -31,7 +31,10 @@ const Table: React.FC<TableProps> = (TableProps) => {
         <thead>
           <Row>
             {columns.map((column) => (
-              <th key={column.key}>
+              <th
+                className={column.align ? `cell-align-${column.align}` : ""}
+                key={column.key}
+              >
                 {enableSort ? (
                   <Sort column={column} applySort={sortColumn} />
                 ) : (
@@ -61,6 +64,7 @@ const Table: React.FC<TableProps> = (TableProps) => {
                   key={column.key}
                   data={row[column.key]}
                   type={column.type}
+                  align={column.align}
                 />
               ))}
             </Row>

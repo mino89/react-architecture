@@ -1,6 +1,6 @@
 export const ARROW_DIRECTIONS = {
-    UP: '▲',
-    DOWN: '▼',
-    LEFT: '◄',
-    RIGHT: '►',
-}
+  UP: "▲",
+  DOWN: "▼",
+  LEFT: "<",
+  RIGHT: ">",
+};

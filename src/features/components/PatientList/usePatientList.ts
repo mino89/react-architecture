@@ -7,13 +7,16 @@ import { ColumnConfig } from "../../../components/Table/_types";
 export function useList() {
   const toastService = useService(UserMessagesService);
   const { addToast } = useContext(ToastContext);
-  
+
   useEffect(() => {
     if (toastService.message) {
-      addToast(toastService.message?.type, toastService.message?.message, toastService.message?.duration);
+      addToast(
+        toastService.message?.type,
+        toastService.message?.message,
+        toastService.message?.duration
+      );
     }
   }, [addToast, toastService.message]);
-
 
   const columnsConfig: ColumnConfig[] = [
     {
@@ -45,12 +48,14 @@ export function useList() {
       label: "Number of Parameters",
       filterType: "number",
       type: "number",
+      align: "right",
     },
     {
       key: "hasAlarm",
       label: "Has Alarm",
       filterType: "select",
       type: "boolean",
+      align: "center",
     },
   ];
 

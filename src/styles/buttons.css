@@ -19,7 +19,8 @@ button {
 }
 
 .alt {
-    background: linear-gradient(to left, var(--color-accent-light), var(--color-error));
+    background: var(--color-transparency);
+    color: var(--color-text);
 }
 
 button:hover {

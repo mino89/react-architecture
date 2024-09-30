@@ -7,20 +7,20 @@
   background-color: var(--color-transparency-darken);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
+  cursor: pointer;
 }
 
 .modal-content {
   background: var(--color-background);
 
   padding: var(--space-l);
-  border-radius: var(--border-radius-l);
+
   position: relative;
   max-width: calc(var(--max-template-width) / 1.15);
   width: 100%;
   max-height: 80vh;
-  overflow-x: auto;
-  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .modal-close {
