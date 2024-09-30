@@ -1,0 +1,48 @@
+button {
+    background: linear-gradient(to left, var(--color-accent), var(--color-accent-dark));
+    color: var(--color-text);
+    border: none;
+    padding: var(--space-xs) var(--space-m);
+    border-radius: var(--border-radius-l);
+    font-size: 1em;
+    font-weight: bold;
+    margin: var(--space-xs) 0;
+    background-size: 200% 200%;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+@media (prefers-color-scheme: light) {
+    button {
+        color: var(--color-background);
+    }
+}
+
+.alt {
+    background: linear-gradient(to left, var(--color-accent-light), var(--color-error));
+}
+
+button:hover {
+    background-position: right;
+    animation: gradientAnimation 4s ease initial;
+}
+
+button:disabled {
+    background: var(--color-transparency);
+    color: var(--color-text);
+    cursor: not-allowed;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: left;
+    }
+
+    50% {
+        background-position: right;
+    }
+
+    100% {
+        background-position: left;
+    }
+}

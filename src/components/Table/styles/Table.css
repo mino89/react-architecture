@@ -1,0 +1,22 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background-color: var(--color-transparency);
+}
+
+td {
+    padding: var(--space-xs);
+
+}
+
+tbody .hover-row:hover {
+    background-color: var(--color-accent-transparency);
+    cursor: pointer;
+}

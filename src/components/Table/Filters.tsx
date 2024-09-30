@@ -26,6 +26,8 @@ export const Filters: React.FC<FilterProps> = (FilterProps) => {
       return (
         <input
           type="text"
+          name="text"
+          placeholder="Enter a value to filter"
           onChange={(event) =>
             applyFilter && applyFilter(event.target.value, column)
           }
@@ -33,7 +35,7 @@ export const Filters: React.FC<FilterProps> = (FilterProps) => {
       );
     case "date":
       return (
-        <>
+        <div className="inputs-group">
           <input
             type="date"
             name="date"
@@ -44,22 +46,25 @@ export const Filters: React.FC<FilterProps> = (FilterProps) => {
             type="date"
             onChange={(e) => applyCompositeFilter("date", e, "previousElement")}
           />
-        </>
+        </div>
       );
     case "number":
       return (
-        <>
+        <div className="inputs-group">
           <input
             type="number"
             name="number"
             id="number"
+            placeholder="Enter a number"
             onChange={(e) => applyCompositeFilter("number", e, "nextElement")}
           />
           <CompositefilterSelect
             type="number"
-            onChange={(e) => applyCompositeFilter("number", e, "previousElement")}
+            onChange={(e) =>
+              applyCompositeFilter("number", e, "previousElement")
+            }
           />
-        </>
+        </div>
       );
     case "select":
       return (

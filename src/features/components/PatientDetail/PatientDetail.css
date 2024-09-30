@@ -1,0 +1,9 @@
+.patient-info {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr 1fr;
+
+    small {
+        display: block;
+    }
+}

@@ -4,9 +4,10 @@ import { useTable } from "./useTable";
 import { TableProps } from "./_types";
 import { Filters } from "./Filters";
 import { Sort } from "./Sort";
-
+import "./styles/Table.css";
 const Table: React.FC<TableProps> = (TableProps) => {
-  const { columns, data, enableFilter, enableSort, onRowClick } = TableProps;
+  const { columns, data, enableFilter, enableSort, onRowClick, enableHover } =
+    TableProps;
   const {
     sortColumn,
     generateOptions,
@@ -36,7 +37,7 @@ const Table: React.FC<TableProps> = (TableProps) => {
                 ) : (
                   <>{column.label}</>
                 )}
-                <br />
+
                 {enableFilter && (
                   <Filters
                     column={column}
@@ -50,7 +51,11 @@ const Table: React.FC<TableProps> = (TableProps) => {
         </thead>
         <tbody>
           {tableData?.map((row) => (
-            <Row key={row.id} onClick={() => onClickHandler(row)}>
+            <Row
+              key={row.id}
+              onClick={() => onClickHandler(row)}
+              enableHover={enableHover}
+            >
               {columns.map((column) => (
                 <Cell
                   key={column.key}

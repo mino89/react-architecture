@@ -16,6 +16,7 @@ export type TableProps = {
   onRowClick?: (row: any) => void;
   enableFilter?: boolean;
   enableSort?: boolean;
+  enableHover?: boolean;
 };
 
 export type CellProps = {
