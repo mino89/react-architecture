@@ -1,19 +1,19 @@
 import { observer } from "mobx-react";
-import { Loading } from "../../../components/Loading/Loading";
 import Modal from "../../../components/Modal/Modal";
 import { Table } from "../../../components/Table/Table";
 import { usePatients } from "../../hooks/usePatients";
-import { Detail } from "../detail/detail";
-import { useList } from "./useList";
+import { PatientDetail } from "../PatientDetail/PatientDetail";
+import { useList } from "./usePatientList";
+import { Loader } from "../../../components/Loader/Loader";
 
-const List: React.FC = observer(() => {
+const PatientList = observer(() => {
   const { columnsConfig } = useList();
   const { patients, isOpen, selectedPatient, closeModal, openDetail } =
     usePatients();
 
   return (
     <>
-      <Loading
+      <Loader
         loadingState="Loading..."
         loadingKey="getPatients"
         loadedState={
@@ -28,11 +28,10 @@ const List: React.FC = observer(() => {
       />
 
       <Modal isOpen={isOpen} onClose={closeModal}>
-        <div>Modal Content</div>
-        {selectedPatient !== null && <Detail id={selectedPatient} />}
+        {selectedPatient !== null && <PatientDetail id={selectedPatient} />}
       </Modal>
     </>
   );
 });
 
-export default List;
+export default PatientList;

@@ -6,13 +6,8 @@ import { UserMessagesService } from "../../../core/services/user-messages-servic
 
 @injectable()
 export class PatientService {
-  private authHeaders = {
-    Authorization: `Basic ${btoa(
-      `${process.env.VITE_API_USER}:${process.env.VITE_API_PASSWORD}`
-    )}`,
-  };
-  private httpClient: HttpClientService;
-  private userMessagesService: UserMessagesService;
+  readonly httpClient: HttpClientService;
+  readonly notificationService: UserMessagesService;
   patients: PatientListItem[] = [];
   patient: PatientResponse = {} as PatientResponse;
 
@@ -22,14 +17,13 @@ export class PatientService {
   ) {
     makeAutoObservable(this);
     this.httpClient = httpClient;
-    this.userMessagesService = userMessagesService;
+    this.notificationService = userMessagesService;
   }
 
   async getPatients(): Promise<void> {
     const response = await this.httpClient.request<PatientResponse[]>({
       url: `api/GetList`,
       method: "GET",
-      headers: this.authHeaders,
       errors: {
         requestErrorText: "Error getting patients",
         promiseErrorText: "Error in promise",
@@ -58,7 +52,6 @@ export class PatientService {
     const response = (await this.httpClient.request<PatientResponse>({
       url: `api/Get/${id}`,
       method: "GET",
-      headers: this.authHeaders,
       errors: {
         requestErrorText: "Error getting patient",
         promiseErrorText: "Error in promise",
@@ -78,7 +71,6 @@ export class PatientService {
       url: `api/Update`,
       method: "POST",
       headers: {
-        ...this.authHeaders,
         "Content-Type": "application/json",
         accept: "*/*",
       },
@@ -90,7 +82,7 @@ export class PatientService {
       loadingKey: "updatePatient",
       emptyBody: true,
     });
-    this.userMessagesService.setMessage({
+    this.notificationService.setMessage({
       type: "success",
       message: "Patient updated",
     });

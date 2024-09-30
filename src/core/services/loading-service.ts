@@ -14,7 +14,7 @@ export class LoadingService {
    * The loading state.
    * @type {LoadingState}
    */
-  private loadingState: LoadingState = {
+  readonly loadingState: LoadingState = {
     loadingKey: "",
     state: false,
   };

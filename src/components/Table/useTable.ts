@@ -74,7 +74,7 @@ export function useTable(data: Array<any>) {
           }
         } else {
           return toSearchString(item[key]).includes(
-            toSearchString(filterMemory[key].toString())
+            toSearchString(filterMemory[key] as string)
           );
         }
       });
@@ -111,11 +111,11 @@ export function useTable(data: Array<any>) {
   };
 
   const toSearchString = (value: number | string) => {
-    return value?.toString().toLowerCase();
+    return value?.toString().toLowerCase().toString();
   };
 
   const resetData = () => {
-    filterMemory && setFilterMemory({});
+    setFilterMemory({});
     setTableData(data);
   };
 

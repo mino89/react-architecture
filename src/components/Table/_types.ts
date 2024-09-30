@@ -13,7 +13,7 @@ export type ColumnConfig = {
 export type TableProps = {
   data: Array<any>;
   columns: ColumnConfig[];
-  onRowClick?: (row: any) => any;
+  onRowClick?: (row: any) => void;
   enableFilter?: boolean;
   enableSort?: boolean;
 };

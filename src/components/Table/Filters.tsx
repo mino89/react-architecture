@@ -2,7 +2,7 @@ import React from "react";
 import { CompositeFilterProps, FilterProps } from "./_types";
 import { Alert } from "../Utils/Alert";
 import { DateFormat } from "../Utils/DateFormat";
-import { ARROW_DIRECTIONS } from "../Utils/arrows";
+import { ARROW_DIRECTIONS } from "../Utils/const/arrows";
 import { useFilters } from "./useFilters";
 
 export const CompositefilterSelect: React.FC<CompositeFilterProps> = (

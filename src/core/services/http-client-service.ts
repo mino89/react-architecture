@@ -12,11 +12,22 @@ import { UserMessagesService } from "./user-messages-service";
  */
 @injectable()
 export class HttpClientService {
+  readonly loadingService: LoadingService;
+  readonly userMessagesService: UserMessagesService;
+  readonly authHeaders = {
+    Authorization: `Basic ${btoa(
+      `${process.env.VITE_API_USER}:${process.env.VITE_API_PASSWORD}`
+    )}`,
+  };
+
   constructor(
-    @inject(LoadingService) private loadingService: LoadingService,
+    @inject(LoadingService) loadingService: LoadingService,
     @inject(UserMessagesService)
-    private userMessagesService: UserMessagesService
-  ) {}
+    userMessagesService: UserMessagesService
+  ) {
+    this.loadingService = loadingService;
+    this.userMessagesService = userMessagesService;
+  }
   /**
    * Sends an HTTP request using the provided options and handles the response.
    *
@@ -28,10 +39,14 @@ export class HttpClientService {
     options: HttpRequestParams<T>
   ): Promise<T | EmptyResponse | ErrorResponse> {
     this.loadingService.start(options.loadingKey);
+    this.checkAuthParams(options);
     try {
       const response = await fetch(options.url, {
         method: options.method,
-        headers: options.headers,
+        headers: {
+          ...this.authHeaders,
+          ...options.headers,
+        },
         body: options.body ? JSON.stringify(options.body) : undefined,
       });
 
@@ -39,14 +54,14 @@ export class HttpClientService {
         return await this.handleResponse(response, options.loadingKey);
       } else {
         this.handleError(
-          options.errors?.requestErrorText || "Request error",
+          options.errors?.requestErrorText ?? "Request error",
           options.loadingKey
         );
         return { status: response.status };
       }
     } catch {
       this.handleError(
-        options.errors?.promiseErrorText || "Promise error",
+        options.errors?.promiseErrorText ?? "Promise error",
         options.loadingKey
       );
       return { status: "error" };
@@ -75,11 +90,27 @@ export class HttpClientService {
    * @param loadingKey
    * @returns void
    */
-  private handleError(message: string, loadingKey: string): void {
+  private handleError(
+    message: string,
+    loadingKey: string,
+    duration = 3000
+  ): void {
     this.loadingService.stop(loadingKey);
     this.userMessagesService.setMessage({
       type: "error",
       message,
+      duration,
     });
+  }
+
+  private checkAuthParams<T>(options: HttpRequestParams<T>) {
+    if (!process.env.VITE_API_USER || !process.env.VITE_API_PASSWORD) {
+      this.handleError(
+        "API user and password not set",
+        options.loadingKey,
+        30000
+      );
+      throw new Error("API user and password not set in environment variable");
+    }
   }
 }

@@ -4,6 +4,7 @@ import { PatientService } from "../../services/patient/patient-service";
 import { ColumnConfig } from "../../../components/Table/_types";
 import { FormFieldConfig } from "../../../components/Form/_types";
 import { PatientResponse } from "../../services/patient/_types";
+
 export function useDetail(id: number | string) {
   const service = useService(PatientService);
   const [patient, setPatient] = useState<PatientResponse>(service.patient);
@@ -69,7 +70,7 @@ export function useDetail(id: number | string) {
       setPatient(service.patient);
     }
     bootstrap();
-  }, [service]);
+  }, [service, id]);
 
   const handleSubmit = async (patient: PatientResponse) => {
     await service.updatePatient(patient);

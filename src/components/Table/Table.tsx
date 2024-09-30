@@ -7,21 +7,30 @@ import { Sort } from "./Sort";
 
 const Table: React.FC<TableProps> = (TableProps) => {
   const { columns, data, enableFilter, enableSort, onRowClick } = TableProps;
-  const { sortColumn, generateOptions, filterColumn, resetData, filterMemory, tableData } =
-    useTable(data);
+  const {
+    sortColumn,
+    generateOptions,
+    filterColumn,
+    resetData,
+    filterMemory,
+    tableData,
+  } = useTable(data);
 
+  const onClickHandler = (row: any) => {
+    if (onRowClick) {
+      onRowClick(row);
+    }
+  };
   return (
     <>
-      {
-        filterMemory && Object.keys(filterMemory).length > 0 && (
-          <button onClick={() => resetData()}>Reset Table Filters</button>
-        )
-      }
+      {filterMemory && Object.keys(filterMemory).length > 0 && (
+        <button onClick={() => resetData()}>Reset Table Filters</button>
+      )}
       <table className="table-auto">
         <thead>
           <Row>
-            {columns.map((column, index) => (
-              <th key={index}>
+            {columns.map((column) => (
+              <th key={column.key}>
                 {enableSort ? (
                   <Sort column={column} applySort={sortColumn} />
                 ) : (
@@ -40,13 +49,14 @@ const Table: React.FC<TableProps> = (TableProps) => {
           </Row>
         </thead>
         <tbody>
-          {tableData?.map((row, index) => (
-            <Row
-              key={index}
-              onClick={() => (onRowClick ? onRowClick(row) : null)}
-            >
-              {columns.map((column, index) => (
-                <Cell key={index} data={row[column.key]} type={column.type} />
+          {tableData?.map((row) => (
+            <Row key={row.id} onClick={() => onClickHandler(row)}>
+              {columns.map((column) => (
+                <Cell
+                  key={column.key}
+                  data={row[column.key]}
+                  type={column.type}
+                />
               ))}
             </Row>
           ))}

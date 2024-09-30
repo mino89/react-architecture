@@ -10,7 +10,7 @@ export function useList() {
   
   useEffect(() => {
     if (toastService.message) {
-      addToast(toastService.message?.type, toastService.message?.message);
+      addToast(toastService.message?.type, toastService.message?.message, toastService.message?.duration);
     }
   }, [addToast, toastService.message]);
 
