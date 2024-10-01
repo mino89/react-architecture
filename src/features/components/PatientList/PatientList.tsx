@@ -23,6 +23,7 @@ const PatientList = observer(() => {
             enableFilter={true}
             enableSort={true}
             onRowClick={(row) => openDetail(row)}
+            enableHover={true}
           />
         }
       />

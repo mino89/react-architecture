@@ -4,9 +4,10 @@ import { useTable } from "./useTable";
 import { TableProps } from "./_types";
 import { Filters } from "./Filters";
 import { Sort } from "./Sort";
-
+import "./styles/Table.css";
 const Table: React.FC<TableProps> = (TableProps) => {
-  const { columns, data, enableFilter, enableSort, onRowClick } = TableProps;
+  const { columns, data, enableFilter, enableSort, onRowClick, enableHover } =
+    TableProps;
   const {
     sortColumn,
     generateOptions,
@@ -30,13 +31,16 @@ const Table: React.FC<TableProps> = (TableProps) => {
         <thead>
           <Row>
             {columns.map((column) => (
-              <th key={column.key}>
+              <th
+                className={column.align ? `cell-align-${column.align}` : ""}
+                key={column.key}
+              >
                 {enableSort ? (
                   <Sort column={column} applySort={sortColumn} />
                 ) : (
                   <>{column.label}</>
                 )}
-                <br />
+
                 {enableFilter && (
                   <Filters
                     column={column}
@@ -49,13 +53,25 @@ const Table: React.FC<TableProps> = (TableProps) => {
           </Row>
         </thead>
         <tbody>
+          {!tableData?.length && (
+            <Row>
+              <td colSpan={columns.length} className="cell-align-center">
+                No data found
+              </td>
+            </Row>
+          )}
           {tableData?.map((row) => (
-            <Row key={row.id} onClick={() => onClickHandler(row)}>
+            <Row
+              key={row.id}
+              onClick={() => onClickHandler(row)}
+              enableHover={enableHover}
+            >
               {columns.map((column) => (
                 <Cell
                   key={column.key}
                   data={row[column.key]}
                   type={column.type}
+                  align={column.align}
                 />
               ))}
             </Row>

@@ -1,0 +1,22 @@
+input,
+select {
+    width: 100%;
+    padding: var(--space-xs);
+    margin: var(--space-xs) 0;
+    border: 1px solid var(--lines-color);
+    border-radius: var(--border-radius-s);
+    box-sizing: border-box;
+    background-color: var(--color-background);
+}
+
+.inputs-group {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-xxs);
+}
+
+input[type="date"],
+select {
+    cursor: pointer;
+
+}

@@ -18,12 +18,14 @@ export function useDetail(id: number | string) {
     {
       key: "value",
       label: "Value",
-      type: "number",
+      type: "float",
+      align: "right",
     },
     {
       key: "alarm",
       label: "Alarm",
       type: "boolean",
+      align: "center",
     },
   ];
 

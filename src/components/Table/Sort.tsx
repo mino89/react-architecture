@@ -4,16 +4,16 @@ import { SortProps } from "./_types";
 export const Sort: React.FC<SortProps> = (SortProps) => {
   const { column, applySort } = SortProps;
   return (
-    <div onClick={() => applySort && applySort(column)}>
+    <div className="sort-group" onClick={() => applySort && applySort(column)}>
       {column.label}{" "}
       {(() => {
-        switch (column.sortOrder){
+        switch (column.sortOrder) {
           case "asc":
             return <>{ARROW_DIRECTIONS.UP}</>;
           case "desc":
             return <>{ARROW_DIRECTIONS.DOWN}</>;
           default:
-            return"";
+            return "";
         }
       })()}
     </div>

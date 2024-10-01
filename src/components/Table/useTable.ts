@@ -6,7 +6,7 @@ export function useTable(data: Array<any>) {
   const [filterMemory, setFilterMemory] = useState<
     Record<string, string | FilterMemoryObj>
   >({});
-
+  const [filteredData, setFilteredData] = useState<Array<any>>([]);
   useEffect(() => {
     setTableData(data);
     filterData();
@@ -14,7 +14,8 @@ export function useTable(data: Array<any>) {
 
   const sortColumn = (column: ColumnConfig) => {
     column.sortOrder = setColumnSortOrder(column);
-    const sortedData = [...tableData].sort((a: any, b: any) => {
+    const dataOrigin = filteredData.length > 0 ? filteredData : tableData;
+    const sortedData = [...dataOrigin].sort((a: any, b: any) => {
       switch (column.sortOrder) {
         case "asc":
           return a[column.key] > b[column.key] ? 1 : -1;
@@ -24,7 +25,14 @@ export function useTable(data: Array<any>) {
           return 0;
       }
     });
-    setTableData(!column.sortOrder ? data : [...sortedData]);
+
+    setTableData(
+      !column.sortOrder
+        ? filteredData.length > 0
+          ? [...filteredData]
+          : [...data]
+        : [...sortedData]
+    );
   };
 
   const setColumnSortOrder = (column: ColumnConfig) => {
@@ -55,7 +63,7 @@ export function useTable(data: Array<any>) {
   };
 
   const filterData = () => {
-    const filteredData = data?.filter((item: any) => {
+    const filteredDataResult = data?.filter((item: any) => {
       return Object.keys(filterMemory).every((key) => {
         if (typeof filterMemory[key] === "object" && filterMemory[key].type) {
           switch (filterMemory[key].type) {
@@ -84,7 +92,8 @@ export function useTable(data: Array<any>) {
       setTableData(data);
       return;
     }
-    setTableData([...filteredData]);
+    setFilteredData([...filteredDataResult]);
+    setTableData([...filteredDataResult]);
   };
 
   const generateOptions = (column: ColumnConfig) => {
