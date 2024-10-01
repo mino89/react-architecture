@@ -5,6 +5,7 @@
         "main"
         "footer";
     grid-template-rows: auto 1fr auto;
+    grid-template-columns: auto;
     min-height: 100vh;
 }
 
@@ -23,6 +24,7 @@ main {
     padding: var(--space-m);
     max-width: var(--max-template-width);
     margin: 0 auto;
+    width: calc(100% - var(--space-m) * 2);
 
 }
 

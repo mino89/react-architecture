@@ -76,9 +76,9 @@ export function useDetail(id: number | string) {
 
   const handleSubmit = async (patient: PatientResponse) => {
     await service.updatePatient(patient);
+    setIsEditing(false);
     await service.getPatients();
     setPatient(patient);
-    setIsEditing(false);
   };
 
   return {

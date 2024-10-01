@@ -13,13 +13,12 @@
 
 .modal-content {
   background: var(--color-background);
-
   padding: var(--space-l);
-
   position: relative;
-  max-width: calc(var(--max-template-width) / 1.15);
-  width: 100%;
-  max-height: 80vh;
+  width: calc(var(--max-template-width) / 1.15);
+  /* width: 100%; */
+
+  height: 80vh;
   overflow-y: auto;
 }
 
@@ -31,4 +30,11 @@
   border: none;
   font-size: 2rem;
   cursor: pointer;
+}
+
+@media all and (max-width: 960px) {
+  .modal-content {
+    width: 100%;
+    height: calc(100vh - var(--space-l) * 2);
+  }
 }

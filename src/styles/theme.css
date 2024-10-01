@@ -39,6 +39,9 @@
     --border-radius-m: 8px;
     --border-radius-l: 16px;
 
+
+    /* Defaults */
+
     font-family: Roboto, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;

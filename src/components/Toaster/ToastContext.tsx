@@ -4,6 +4,7 @@ import React, {
   useCallback,
   useMemo,
   useRef,
+  createRef,
 } from "react";
 import { ToastContextProps, Toast } from "./_types";
 
@@ -31,7 +32,10 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
     (type: Toast["type"], message: string, duration?: number) => {
       if (!message) return;
       const id = Date.now();
-      setToasts((prevToasts) => [...prevToasts, { id, type, message }]);
+      setToasts((prevToasts) => [
+        ...prevToasts,
+        { id, type, message, nodeRef: createRef() },
+      ]);
       const timeoutId = setTimeout(() => removeToast(id), duration ?? 3000);
       timeOutIds.current[id] = timeoutId;
     },
