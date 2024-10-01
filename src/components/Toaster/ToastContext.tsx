@@ -36,7 +36,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
         ...prevToasts,
         { id, type, message, nodeRef: createRef() },
       ]);
-      const timeoutId = setTimeout(() => removeToast(id), duration ?? 3000);
+      const timeoutId = setTimeout(() => removeToast(id), duration || 3000);
       timeOutIds.current[id] = timeoutId;
     },
     [removeToast]
