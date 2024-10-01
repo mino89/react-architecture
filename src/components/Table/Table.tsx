@@ -4,7 +4,7 @@ import { useTable } from "./useTable";
 import { TableProps } from "./_types";
 import { Filters } from "./Filters";
 import { Sort } from "./Sort";
-import "./styles/Table.css";
+import "./Table.css";
 const Table: React.FC<TableProps> = (TableProps) => {
   const { columns, data, enableFilter, enableSort, onRowClick, enableHover } =
     TableProps;

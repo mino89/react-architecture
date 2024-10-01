@@ -31,3 +31,10 @@
   font-size: 2rem;
   cursor: pointer;
 }
+
+@media all and (max-width: 960px) {
+  .modal-content {
+    width: 100%;
+    height: calc(100vh - var(--space-l) * 2);
+  }
+}
