@@ -54,14 +54,14 @@ export class HttpClientService {
         return await this.handleResponse(response, options.loadingKey);
       } else {
         this.handleError(
-          options.errors?.requestErrorText ?? "Request error",
+          options.errors?.requestErrorText || "Request error",
           options.loadingKey
         );
         return { status: response.status };
       }
     } catch {
       this.handleError(
-        options.errors?.promiseErrorText ?? "Promise error",
+        options.errors?.promiseErrorText || "Promise error",
         options.loadingKey
       );
       return { status: "error" };
