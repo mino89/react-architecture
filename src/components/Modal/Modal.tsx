@@ -1,20 +1,41 @@
-import React from "react";
-import "./Modal.css"; // Import CSS for styling
+import React, { useRef } from "react";
 import { ModalProps } from "./_types";
+import { CSSTransition } from "react-transition-group";
+import "./Modal.css";
 
 const Modal: React.FC<ModalProps> = (ModalProps) => {
   const { isOpen, onClose, children } = ModalProps;
-  if (!isOpen) return null;
-
+  const overlayRef = useRef(null);
+  const contentRef = useRef(null);
   return (
-    <div className="modal-overlay" onClick={onClose} role="">
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose}>
-          &times;
-        </button>
-        {children}
+    <CSSTransition
+      in={isOpen}
+      timeout={300}
+      classNames="fade"
+      nodeRef={overlayRef}
+      unmountOnExit
+    >
+      <div className="modal-overlay" onClick={onClose} ref={overlayRef}>
+        <CSSTransition
+          in={isOpen}
+          timeout={300}
+          classNames="slide-up"
+          nodeRef={contentRef}
+          unmountOnExit
+        >
+          <div
+            className="modal-content"
+            onClick={(e) => e.stopPropagation()}
+            ref={contentRef}
+          >
+            <button className="modal-close" onClick={onClose}>
+              &times;
+            </button>
+            {children}
+          </div>
+        </CSSTransition>
       </div>
-    </div>
+    </CSSTransition>
   );
 };
 

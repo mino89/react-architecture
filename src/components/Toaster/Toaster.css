@@ -20,15 +20,15 @@
 }
 
 .toast.success {
-  background-color: #4caf50;
+  background-color: var(--color-success);
 }
 
 .toast.error {
-  background-color: #f44336;
+  background-color: var(--color-error);
 }
 
 .toast.info {
-  background-color: #2196f3;
+  background-color: var(--color-info);
 }
 
 .toast button {
