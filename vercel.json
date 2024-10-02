@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/api",
-      "destination": "https://mobile.digistat.it/CandidateApi/Patient"
+      "source": "/api/:path*",
+      "destination": "https://mobile.digistat.it/CandidateApi/Patient/:path*"
     }
   ]
 }
