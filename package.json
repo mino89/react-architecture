@@ -15,6 +15,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "@tanstack/react-router": "^1.62.0",
     "inversify": "^6.0.2",
     "jest-fetch-mock": "^3.0.3",
     "mobx": "^6.13.3",
@@ -31,6 +32,8 @@
     "@babel/preset-env": "^7.25.4",
     "@babel/preset-typescript": "^7.24.7",
     "@eslint/js": "^9.9.0",
+    "@tanstack/router-devtools": "^1.62.0",
+    "@tanstack/router-plugin": "^1.62.0",
     "@types/jest": "^29.5.13",
     "@types/node": "^22.7.3",
     "@types/react": "^18.3.3",

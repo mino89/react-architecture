@@ -67,3 +67,11 @@
         --color-transparency-darken: rgba(0, 0, 0, 0.662);
     }
 }
+
+.logo-img {
+    max-width: var(--space-l);
+}
+
+.logo-title {
+    font-size: 1em;
+}
