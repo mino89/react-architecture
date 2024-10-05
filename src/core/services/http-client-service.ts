@@ -2,6 +2,7 @@ import { inject, injectable } from "inversify";
 import { LoadingService } from "./loading-service";
 import { EmptyResponse, ErrorResponse, HttpRequestParams } from "./_types";
 import { UserMessagesService } from "./user-messages-service";
+import { AuthService } from "./auth-service";
 /**
  * Service for sending HTTP requests.
  * @class HttpClientService
@@ -14,19 +15,16 @@ import { UserMessagesService } from "./user-messages-service";
 export class HttpClientService {
   readonly loadingService: LoadingService;
   readonly userMessagesService: UserMessagesService;
-  readonly authHeaders = {
-    Authorization: `Basic ${btoa(
-      `${process.env.VITE_API_USER}:${process.env.VITE_API_PASSWORD}`
-    )}`,
-  };
+  readonly authService: AuthService;
 
   constructor(
     @inject(LoadingService) loadingService: LoadingService,
-    @inject(UserMessagesService)
-    userMessagesService: UserMessagesService
+    @inject(UserMessagesService) userMessagesService: UserMessagesService,
+    @inject(AuthService) authService: AuthService
   ) {
     this.loadingService = loadingService;
     this.userMessagesService = userMessagesService;
+    this.authService = authService;
   }
   /**
    * Sends an HTTP request using the provided options and handles the response.
@@ -41,10 +39,13 @@ export class HttpClientService {
     this.loadingService.start(options.loadingKey);
     this.checkAuthParams(options);
     try {
+      const authData = this.authService.authData;
       const response = await fetch(options.url, {
         method: options.method,
         headers: {
-          ...this.authHeaders,
+          Authorization: `Basic ${btoa(
+            `${authData.user}:${authData.password}`
+          )}`,
           ...options.headers,
         },
         body: options.body ? JSON.stringify(options.body) : undefined,

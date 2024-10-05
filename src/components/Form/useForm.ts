@@ -1,15 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export const useForm = (data: any, onSubmit: Function) => {
   const [formData, setFormData] = useState<any>(data);
   const [disabled, setDisabled] = useState<boolean>(false);
-  
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmit(formData);
   };
 
-  useEffect(() => {
+  const setDisabledIfEqual = () => {
+    const formDataPlain = { ...formData };
+    const dataPlain = { ...data };
+    const isEqual = Object.keys(formDataPlain).every(
+      (key) => formDataPlain[key] === dataPlain[key]
+    );
+    setDisabled(isEqual);
+  };
+
+  useMemo(() => {
     setDisabledIfEqual();
   }, [formData]);
 
@@ -19,13 +28,6 @@ export const useForm = (data: any, onSubmit: Function) => {
       | React.ChangeEvent<HTMLSelectElement>
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const setDisabledIfEqual = () => {
-    const formDataPlain = {...formData}
-    const dataPlain = {...data}
-    const isEqual = Object.keys(formDataPlain).every(key => formDataPlain[key] === dataPlain[key]);
-    setDisabled(isEqual);
   };
 
   return {
