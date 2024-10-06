@@ -48,11 +48,16 @@ export class HttpClientService {
           )}`,
           ...options.headers,
         },
+        credentials: "omit",
         body: options.body ? JSON.stringify(options.body) : undefined,
       });
 
       if (response.ok) {
         return await this.handleResponse(response, options.loadingKey);
+      } else if (response.status === 401) {
+        this.authService.updateMustLogOut(true);
+        this.handleError("Uhautorized", options.loadingKey);
+        return { status: response.status };
       } else {
         this.handleError(
           options.errors?.requestErrorText || "Request error",
@@ -60,7 +65,7 @@ export class HttpClientService {
         );
         return { status: response.status };
       }
-    } catch {
+    } catch (err) {
       this.handleError(
         options.errors?.promiseErrorText || "Promise error",
         options.loadingKey

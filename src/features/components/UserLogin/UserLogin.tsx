@@ -7,11 +7,7 @@ export const UserLogin = observer(() => {
   return (
     <div>
       <h1>Login</h1>
-      <Form
-        data={formData}
-        fields={formFieldsConfig}
-        onSubmit={async (data) => await onSubmit(data)}
-      />
+      <Form data={formData} fields={formFieldsConfig} onSubmit={onSubmit} />
     </div>
   );
 });

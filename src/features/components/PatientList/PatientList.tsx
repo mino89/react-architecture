@@ -6,10 +6,13 @@ import { PatientDetail } from "../PatientDetail/PatientDetail";
 import { useList } from "./usePatientList";
 import { Loader } from "../../../components/Loader/Loader";
 
+import { useLogout } from "../../hooks/useLogout";
+
 const PatientList = observer(() => {
   const { columnsConfig } = useList();
   const { patients, isOpen, selectedPatient, closeModal, openDetail } =
     usePatients();
+  const {} = useLogout();
 
   return (
     <>

@@ -4,6 +4,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 @injectable()
 export class AuthService {
   isLoggedIn = this.checkLoggedIn();
+  mustLogOut = false;
   get authData() {
     return this.getAuthData();
   }
@@ -31,7 +32,6 @@ export class AuthService {
             ?.toString() ?? ""
         )
       );
-      console.log("checkloggedin", expirationDate, new Date());
       return expirationDate > new Date();
     })();
   }
@@ -54,6 +54,12 @@ export class AuthService {
     document.cookie = `expires=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
   }
 
+  updateMustLogOut(value: boolean) {
+    runInAction(() => {
+      this.mustLogOut = value;
+    });
+  }
+
   private getAuthData() {
     const userCookie =
       document.cookie
@@ -71,11 +77,11 @@ export class AuthService {
     };
   }
 
-  encryptPassword(password: string): string {
+  private encryptPassword(password: string): string {
     return btoa(password);
   }
 
-  decryptPassword(encryptedPassword: string): string {
+  private decryptPassword(encryptedPassword: string): string {
     return atob(encryptedPassword);
   }
 }

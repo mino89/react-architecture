@@ -9,6 +9,9 @@ export const Route = createFileRoute("/")({
     if (!service.isLoggedIn) {
       throw redirect({
         to: "/login",
+        // search: {
+        //   redirect: location.href,
+        // },
       });
     }
   },
