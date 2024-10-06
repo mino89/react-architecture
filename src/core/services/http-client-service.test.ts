@@ -6,6 +6,7 @@ import { HttpRequestParams, EmptyResponse } from "./_types";
 import fetchMock from "jest-fetch-mock"; // Import fetchMock
 
 import nock from "nock"; // Import nock
+import { AuthService } from "./auth-service";
 
 jest.mock("./loading-service");
 jest.mock("./user-messages-service");
@@ -14,6 +15,7 @@ describe("HttpClientService", () => {
   let httpClientService: HttpClientService;
   let loadingService: LoadingService;
   let userMessagesService: UserMessagesService;
+  let authService: AuthService;
   const OLD_ENV = process.env;
 
   beforeEach(() => {
@@ -21,9 +23,11 @@ describe("HttpClientService", () => {
     process.env.VITE_API_PASSWORD = "test";
     loadingService = new LoadingService();
     userMessagesService = new UserMessagesService();
+    authService = new AuthService();
     httpClientService = new HttpClientService(
       loadingService,
-      userMessagesService
+      userMessagesService,
+      authService
     );
     fetchMock.resetMocks();
     nock.cleanAll();

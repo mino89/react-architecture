@@ -1,4 +1,3 @@
-import { useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { useService } from "../../core/hooks/useService";
 import { AuthService } from "../../core/services/auth-service";

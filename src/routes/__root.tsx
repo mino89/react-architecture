@@ -1,4 +1,4 @@
-import { Outlet, createRootRoute, useNavigate } from "@tanstack/react-router";
+import { Outlet, createRootRoute } from "@tanstack/react-router";
 import { Layout } from "../components/Layout/Layout";
 import { ToastProvider } from "../components/Toaster/ToastContext";
 import Toaster from "../components/Toaster/Toaster";

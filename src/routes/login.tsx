@@ -2,7 +2,6 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useService } from "../core/hooks/useService";
 import { AuthService } from "../core/services/auth-service";
 import { UserLogin } from "../features/components/UserLogin/UserLogin";
-import { UserMessagesService } from "../core/services/user-messages-service";
 
 export const Route = createFileRoute("/login")({
   beforeLoad: async () => {
@@ -11,9 +10,6 @@ export const Route = createFileRoute("/login")({
     if (service.isLoggedIn) {
       throw redirect({
         to: "/",
-        // search: {
-        //   redirect: location.href,
-        // },
       });
     }
   },
