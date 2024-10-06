@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 export const useForm = (data: any, onSubmit: Function) => {
   const [formData, setFormData] = useState<any>(data);
